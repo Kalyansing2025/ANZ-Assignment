@@ -153,3 +153,19 @@ ngx-spinner .loading-text {
     color: white;
     font-size: 1.3em;
 }
+
+bs-days-calendar-view + bs-days-calendar-view {
+    margin-left: 10px;
+}
+
+bs-days-calendar-view {
+    display: inline-block;
+    border-radius: 4px 0 0 4px;
+}
+
+@media (max-width: 768px) {
+    .btn-md-icon {
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+    }
+}

@@ -12,6 +12,7 @@ namespace MyTraining1101Demo.Authorization.Users
     /// </summary>
     public class User : AbpUser<User>
     {
+        public bool IsUser { get; set; }
         public virtual Guid? ProfilePictureId { get; set; }
 
         public virtual bool ShouldChangePasswordOnNextLogin { get; set; }
@@ -23,6 +24,7 @@ namespace MyTraining1101Demo.Authorization.Users
         public string GoogleAuthenticatorKey { get; set; }
 
         public List<UserOrganizationUnit> OrganizationUnits { get; set; }
+        //public bool IsUser { get; set; }
 
         //Can add application specific user properties here
 
