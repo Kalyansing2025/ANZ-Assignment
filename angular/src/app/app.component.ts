@@ -20,7 +20,7 @@ import {
     DrawerComponent,
     StickyComponent,
     MenuComponent,
-    ScrollComponent
+    ScrollComponent,
 } from '@metronic/app/kt/components';
 
 @Component({
@@ -70,17 +70,34 @@ export class AppComponent extends AppComponentBase implements OnInit {
         this.pluginsInitialization();
     }
 
+    pluginsInitialized(): boolean {
+        var menuItems = document.querySelectorAll('[data-kt-menu="true"]');
+        for (var i = 0; i < menuItems.length; i++) {
+            var el = menuItems[i];
+            const menuItem = el as HTMLElement;
+            let menuInstance = MenuComponent.getInstance(menuItem);
+            if (menuInstance) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     pluginsInitialization() {
         setTimeout(() => {
-          ToggleComponent.bootstrap();
-          ScrollTopComponent.bootstrap();
-          DrawerComponent.bootstrap();
-          StickyComponent.bootstrap();
-          MenuComponent.bootstrap();
-          ScrollComponent.bootstrap();
+            if (this.pluginsInitialized()) {
+                return;
+            }
 
+            ToggleComponent.bootstrap();
+            ScrollTopComponent.bootstrap();
+            DrawerComponent.bootstrap();
+            StickyComponent.bootstrap();
+            MenuComponent.bootstrap();
+            ScrollComponent.bootstrap();
         }, 200);
-      }
+    }
 
     subscriptionStatusBarVisible(): boolean {
         return (

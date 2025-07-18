@@ -25,6 +25,8 @@ using MyTraining1101Demo.Authorization.Users.Importing.Dto;
 using MyTraining1101Demo.Authorization.Users.Profile.Dto;
 using MyTraining1101Demo.Chat;
 using MyTraining1101Demo.Chat.Dto;
+using MyTraining1101Demo.Customers;
+using MyTraining1101Demo.Customers.Dto;
 using MyTraining1101Demo.DynamicEntityProperties.Dto;
 using MyTraining1101Demo.Editions;
 using MyTraining1101Demo.Editions.Dto;
@@ -41,6 +43,8 @@ using MyTraining1101Demo.Notifications.Dto;
 using MyTraining1101Demo.Organizations.Dto;
 using MyTraining1101Demo.Sessions.Dto;
 using MyTraining1101Demo.WebHooks.Dto;
+using Stripe;
+using Customer = MyTraining1101Demo.Customers.Customer;
 
 namespace MyTraining1101Demo
 {
@@ -48,6 +52,22 @@ namespace MyTraining1101Demo
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+
+
+            configuration.CreateMap<Customer, CustomerListDto>();
+            configuration.CreateMap<CreateCustomerInput, Customer>();
+            configuration.CreateMap<Customer, GetCustomerForEditOutput>();
+            configuration.CreateMap<CustomerUsers, UserInCustomerListDto>();
+            configuration.CreateMap<AddUserInput, User>();
+            configuration.CreateMap<AddUserInput, CustomerUsers>();
+            configuration.CreateMap<UserViewDto, User>().ReverseMap();
+            configuration.CreateMap<CustomerDto, Customer>();
+            configuration.CreateMap<CustomerUsersDropDownDto, User>().ReverseMap();
+            configuration.CreateMap<CustomerUsers, GetUserInput>().ReverseMap();
+            configuration.CreateMap<CustomerUsers, User>().ReverseMap();
+
+
+
             //Inputs
             configuration.CreateMap<CheckboxInputType, FeatureInputTypeDto>();
             configuration.CreateMap<SingleLineStringInputType, FeatureInputTypeDto>();

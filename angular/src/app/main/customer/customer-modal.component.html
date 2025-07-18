@@ -1,0 +1,139 @@
+<div bsModal #modal="bs-modal" (onShown)="onShown()" class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="modal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #customerForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span>{{"Create New Customers and Users" | localize}}</span>
+                    </h4>
+
+                    <button type="button" class="close btn " (click)="close()" aria-label="Close"><i
+                            class="bi bi-x-lg"></i>
+                        <!-- <span aria-hidden="true">&times;</span> -->
+                    </button>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="row ">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{"Customer Name" | localize}} <span>*</span></label>
+                                <input #nameInput class="form-control" type="text" placeholder="Enter Customer Name"
+                                    name="customerName" [(ngModel)]="customer.customerName" required maxlength="32">
+
+                                <div *ngIf="!customer.customerName && (!customer.customerName || !customer.customerName)"
+                                    class="text-muted">
+
+                                    <div *ngIf="!customer.customerName?.['required']">
+                                        Plese Enter Customer Name
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{"Email Address" | localize}} <span>*</span></label>
+                                <input class="form-control" type="email" placeholder="Enter Customer email"
+                                    name="email Address" [(ngModel)]="customer.emailAddress" email required
+                                    maxlength="32" #emailAddress="ngModel"
+                                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,})+$">
+
+                                <div *ngIf="emailAddress.errors?.['required']" class="text-muted">
+                                    Plese Enter Email Address
+                                </div>
+
+                                <div *ngIf=" (!emailAddress.dirty || !emailAddress.touched)">
+                                    <div *ngIf="emailAddress.errors?.['pattern']">
+                                        Email is Not Valied
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row " style="margin-top: 30px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{"Address" | localize}}</label>
+                                <input class="form-control" type="text" placeholder="Enter Customer Address"
+                                    name="address" [(ngModel)]="customer.address" required maxlength="32">
+
+                                <div *ngIf="!customer.address && (!customer.address || !customer.address)"
+                                    class="text-muted">
+                                    <div *ngIf="!customer.address?.['required']">
+                                        Plese Enter customer Address
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>{{"Reigistration Date" | localize}}</label>
+                                <input class="form-control" type="date" name="registrationDate"
+                                    [(ngModel)]="customer.registrationDate" required maxlength="255">
+
+                                <div *ngIf="!customer.registrationDate && (!customer.registrationDate || !customer.registrationDate)"
+                                    class="text-muted">
+
+                                    <div *ngIf="!customer.registrationDate?.['required']">
+                                        Plese Enter Registration Date
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row " style="margin-top: 70px;">
+                        <div class="col-md-8">
+                            <div class="form-group row">
+                                <div class="col-7">
+                                    <label>{{ "Add User" | localize}}</label>
+                                    <select class="form-control col-6" #select (change)="onSelect(select.value)"
+                                        name="userRefId" [(ngModel)]="customer.userRefId">
+
+                                        <option *ngFor="let u of user" [value]=u.id>{{u.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-4 mt-5">
+                                    <button type="button" class="btn btn-primary text-white"
+                                        (click)="pushValue(select.value)"
+                                        style="background-color: rgb(248, 145, 110);"><i
+                                            class="fa fa-plus text-white"></i>Add User</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                        </div>
+                        
+                    </div>
+
+
+
+
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-secondary" (click)="close()">{{"Cancel" |
+                        localize}}</button>
+                    <button type="submit" class="btn btn-success" (click)="refresh()"
+                        [disabled]="!customerForm.form.valid" [buttonBusy]="saving"
+                        [busyText]="l('SavingWithThreeDot' | localize)" style="background-color: rgb(248, 145, 110);">
+                        <span>{{"Save Customer" | localize}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
